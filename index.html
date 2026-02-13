@@ -4,178 +4,17 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Customer Success Team</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-  * {margin: 0; padding: 0; box-sizing: border-box;}
-  body {
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-    background: url('assets/images/background.png') no-repeat center center fixed;
-    background-size: cover;
-    overflow-y: auto;
-    animation: fadeInBackground 2s ease-in-out;
-  }
-
-  @keyframes fadeInBackground {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
-
-  .overlay {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 1;
-  }
-
-  .clouds {
-    position: absolute;
-    top: 0; left: 0;
-    width: 200%; height: 200%;
-    background: url('assets/images/clouds.png') repeat;
-    background-size: contain;
-    opacity: 0.12;
-    animation: cloudMove 120s linear infinite;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  @keyframes cloudMove {
-    0% {transform: translateX(0);}
-    100% {transform: translateX(-50%);}
-  }
-
-  header {
-    position: sticky; top: 0;
-    z-index: 5;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1rem 2rem;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-  }
-
-  .brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-    font-weight: 700;
-  }
-
-  .brand span {
-    font-size: 1.6rem;
-  }
-
-  .brand img {
-    width: 70px;
-    height: auto;
-    margin-top: 5px;
-  }
-
-  nav ul {
-    display: flex; list-style: none; gap: 20px; flex-wrap: wrap;
-  }
-
-  nav a {
-    color: #fff; text-decoration: none;
-    font-weight: 500; padding: 6px 12px;
-    border-radius: 5px; transition: all 0.3s ease;
-  }
-
-  nav a:hover {background: #ff1f1f; transform: scale(1.05);}
-  nav a.active {background: #ff1f1f;}
-
-  .hero {
-    text-align: center;
-    padding: 8rem 2rem 10rem;
-    position: relative;
-    z-index: 5;
-    min-height: 100vh;
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    animation: fadeInDown 1.5s ease;
-  }
-
-  .hero p {
-    font-size: 1.2rem;
-    color: #ccc;
-    max-width: 700px;
-    margin: 0 auto 2rem;
-    line-height: 1.6;
-  }
-
-  /* === TEAM CAROUSEL ==== */
-  .va-carousel {
-    position: absolute;
-    top: 150px;
-    right: 20px;
-    width: 180px;
-    text-align: center;
-    z-index: 20;
-  }
-
-  .va-carousel img {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 3px solid #ff4444;
-    box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
-  }
-
-  .va-controls {
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .va-controls button {
-    background: #e50914;
-    border: none;
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.3s;
-  }
-
-  .va-controls button:hover {
-    background: #ff1f1f;
-    transform: scale(1.05);
-  }
-
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    background: #111;
-    color: #bbb;
-    margin-top: 60px;
-    z-index: 5;
-  }
-
-  @keyframes fadeInDown {
-    from {opacity: 0; transform: translateY(-30px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<div class="overlay"></div>
+
 <div class="clouds"></div>
 
 <header>
-  <a href="index.html" class="brand">
-    <span>Customer Success Team</span>
+  <div class="brand-container">
+    <a href="index.html" class="brand">Customer Success Team</a>
     <img src="assets/images/logo.png" alt="Team Logo">
-  </a>
-
+  </div>
   <nav>
     <ul>
       <li><a href="index.html" class="active">Home</a></li>
@@ -191,49 +30,62 @@
 <section class="hero">
   <h1>Welcome to the Customer Success Team</h1>
   <p>Empowering clients. Supporting growth. Driving long-term success.</p>
+  <a href="team.html">Meet the Team</a>
+  <a href="about.html">About Us</a>
+</section>
 
-  <!-- TEAM PHOTO SLIDER -->
-  <div class="va-carousel">
-    <img id="va-photo" src="assets/images/team/photo1.jpg" alt="Team Photo">
-    <div class="va-controls">
-      <button onclick="prevPhoto()">⬅️</button>
-      <button onclick="nextPhoto()">➡️</button>
+<main class="courses">
+  <h2>Featured Staff</h2>
+  <div class="staff-gallery">
+    <div class="staff-card" data-type="staff" data-id="niccole">
+      <img src="assets/images/staff/niccole.jpg" alt="Niccole Peller">
+      <h3>Niccole Peller</h3>
+      <p>Customer Success Director</p>
+    </div>
+    <div class="staff-card" data-type="staff" data-id="gell">
+      <img src="assets/images/staff/gell.jpg" alt="Gell Berona">
+      <h3>Gell Berona</h3>
+      <p>Executive Assistant</p>
     </div>
   </div>
+</main>
 
-  <div class="buttons">
-    <a href="team.html" class="btn btn-red">Meet the Team</a>
-    <a href="about.html" class="btn btn-black">About Us</a>
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modalContent"></div>
   </div>
-</section>
+</div>
 
 <footer>
   <p>© 2026 Customer Success Team. All Rights Reserved.</p>
 </footer>
 
 <script>
-const teamPhotos = [
-  "assets/images/team/photo1.jpg",
-  "assets/images/team/photo2.jpg"
-];
+const staffData = {
+  niccole: `<h2>Niccole Peller – Customer Success Director</h2>
+  <p>Leads the customer success division and oversees all department operations.</p>`,
+  gell: `<h2>Gell Berona – Executive Assistant</h2>
+  <p>Supports Niccole Peller in day-to-day operations and scheduling.</p>`
+};
 
-let teamIndex = 0;
+document.querySelectorAll('.staff-card').forEach(card=>{
+  card.addEventListener('click', ()=>{
+    const id = card.getAttribute('data-id');
+    document.getElementById('modalContent').innerHTML = staffData[id];
+    document.getElementById('modal').classList.add('active');
+  });
+});
 
-function showTeam() {
-  document.getElementById("va-photo").src = teamPhotos[teamIndex];
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
 }
 
-function nextPhoto() {
-  teamIndex = (teamIndex + 1) % teamPhotos.length;
-  showTeam();
-}
-
-function prevPhoto() {
-  teamIndex = (teamIndex - 1 + teamPhotos.length) % teamPhotos.length;
-  showTeam();
-}
+window.addEventListener('load', ()=> {
+  document.querySelectorAll('.staff-card').forEach(card=>card.classList.add('visible'));
+});
 </script>
 
 </body>
 </html>
-
