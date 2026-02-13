@@ -1,1 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About • Customer Success Team</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background: linear-gradient(rgba(155, 18, 18, 0.6), rgba(0, 0, 0, 0.9)), url('assets/images/background.png') center/cover no-repeat fixed;
+  background-blend-mode: overlay, multiply;
+  overflow-x: hidden;
+}
+
+.clouds{
+  position:absolute;top:0;left:0;width:200%;height:200%;
+  background:url('assets/images/clouds.png') repeat;
+  background-size:contain;
+  opacity:0.12;
+  animation:cloudMove 120s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes cloudMove{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+header{
+  position:sticky;top:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 2rem;background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(5px);
+}
+.brand-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.brand{color:#fff;font-size:1.5rem;font-weight:700;text-decoration:none;}
+.brand img{width:80px;height:auto;margin-top:5px;opacity:0.9;filter:drop-shadow(0 0 5px rgba(255,255,255,0.3));}
+
+nav ul{display:flex;list-style:none;gap:20px;flex-wrap:wrap;}
+nav a{color:#fff;text-decoration:none;font-weight:500;padding:6px 12px;border-radius:5px;transition:all 0.3s ease;}
+nav a:hover{background:#ff1f1f;transform:scale(1.05);}
+nav a.active{background:#ff1f1f;}
+
+.container{max-width:1150px;margin:0 auto;padding:40px 20px;position:relative;z-index:5;}
+
+.trainers{text-align:center;margin-top:40px;}
+.trainers h2{color:#ff1f1f;font-size:2.4rem;margin-bottom:10px;text-transform:uppercase;}
+.trainers p{color:#ddd;margin-bottom:40px;}
+.trainer-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;}
+.trainer-card{
+  background:#fff;color:#000;border-radius:15px;padding:1rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+  transform:translateY(60px);opacity:0;
+  transition:transform 0.5s ease, opacity 0.5s ease;
+  cursor:pointer;position:relative;
+}
+.trainer-card.visible{transform:translateY(0);opacity:1;}
+.trainer-card img{width:100%;height:230px;object-fit:cover;border-radius:12px;border:3px solid #ff1f1f;transition:transform 0.3s ease;}
+.trainer-card:hover img{transform:scale(1.05);}
+.trainer-card h3{color:#800000;margin:10px 0 5px;font-size:1.2rem;}
+.trainer-card p{color:#333;font-weight:bold;font-size:1rem;}
+
+.info-section{margin-top:80px;}
+.info-section h1{font-size:2.5rem;margin-bottom:10px;color:#fff;}
+.info-section p.lead{color:#f1f1f1;font-size:1.1rem;margin-bottom:20px;}
+.info-section h3{color:#ff1f1f;margin-top:25px;margin-bottom:10px;}
+.info-section ul{color:#ddd;list-style:disc inside;margin-left:10px;}
+.info-section li{margin-bottom:8px;}
+
+footer{text-align:center;padding:30px 20px;background:#111;color:#bbb;margin-top:60px;}
+
+@media(max-width:900px){
+  .info-section h1{font-size:2rem;}
+  .trainers h2{font-size:2rem;}
+}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  display:flex;justify-content:center;align-items:center;
+  z-index:100;opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+.modal-overlay.active{opacity:1;pointer-events:auto;}
+.modal{
+  background:#fff;color:#111;border-radius:20px;max-width:600px;padding:30px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  text-align:left;animation:popIn 0.4s ease;position:relative;
+}
+@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal h2{color:#b30000;margin-bottom:10px;}
+.modal p{color:#333;line-height:1.6;margin-bottom:10px;}
+.close-btn{position:absolute;top:10px;right:15px;font-size:1.5rem;color:#b30000;cursor:pointer;font-weight:bold;}
+
+/* Gallery Lightbox */
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;
+}
+.gallery-img{width:100%;height:220px;object-fit:cover;border-radius:15px;border:3px solid #ff1f1f;cursor:pointer;transition:transform 0.3s ease;}
+.gallery-img:hover{transform:scale(1.05);}
+.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:flex;justify-content:center;align-items:center;z-index:150;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+.lightbox.active{opacity:1;pointer-events:auto;}
+.lightbox img{max-width:90%;max-height:85%;border-radius:15px;box-shadow:0 0 30px rgba(255,255,255,0.2);animation:zoomIn 0.3s ease;}
+@keyframes zoomIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.lightbox .close-lightbox{position:absolute;top:20px;right:30px;color:#fff;font-size:2rem;cursor:pointer;font-weight:bold;}
+</style>
+</head>
+<body>
+<div class="clouds"></div>
+
+<header>
+  <div class="brand-container">
+    <a href="index.html" class="brand">Customer Success Team</a>
+    <img src="assets/images/logo.png" alt="Team Logo" class="lava-logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">Trainers</a></li>
+      <li><a href="team.html">Meet the Team</a></li>
+      <li><a href="trainers.html">Trainers</a></li>
+      <li><a href="executive-assistant.html">Executive Assistant</a></li>
+      <li><a href="team-leader.html">Team Leader</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="trainers">
+    <h2>Meet Our Trainers</h2>
+    <p>Click a trainer to learn more about their experience and expertise.</p>
+    <div class="trainer-gallery">
+      <div class="trainer-card" data-trainer="alice"><img src="assets/images/trainers/alice.jpg" alt="Alice"><h3>Alice</h3><p>Lead Trainer</p></div>
+      <div class="trainer-card" data-trainer="bob"><img src="assets/images/trainers/bob.jpg" alt="Bob"><h3>Bob</h3><p>Trainer</p></div>
+      <div class="trainer-card" data-trainer="carol"><img src="assets/images/trainers/carol.jpg" alt="Carol"><h3>Carol</h3><p>Trainer</p></div>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h1>About Customer Success Team</h1>
+    <p class="lead">Our team ensures client satisfaction, support excellence, and operational efficiency across all services.</p>
+    <h3>Who is this for?</h3>
+    <p>New team members, client support staff, and anyone who wants to understand our department operations.</p>
+    <h3>Team Objectives</h3>
+    <ul>
+      <li>Provide outstanding customer support</li>
+      <li>Ensure client success metrics are met</li>
+      <li>Train and mentor new staff effectively</li>
+    </ul>
+  </section>
+
+  <section class="classroom-gallery">
+    <h2>Team Activities Gallery</h2>
+    <p>Explore moments from our team trainings, workshops, and activities.</p>
+    <div class="gallery-grid">
+      <img src="assets/images/class1.jpg" alt="Activity 1" class="gallery-img">
+      <img src="assets/images/class2.jpg" alt="Activity 2" class="gallery-img">
+      <img src="assets/images/class3.jpg" alt="Activity 3" class="gallery-img">
+    </div>
+  </section>
+</main>
+
+<!-- Trainer Modal -->
+<div class="modal-overlay" id="trainerModal">
+  <div class="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+  <img src="" alt="Expanded view" id="lightboxImg">
+</div>
+
+<footer><p>© 2026 Customer Success Team. All Rights Reserved.</p></footer>
+
+<script>
+const bios = {
+  alice: `<h2>Alice – Lead Trainer</h2><p>Alice has 10 years of customer support experience and leads our internal training programs.</p>`,
+  bob: `<h2>Bob – Trainer</h2><p>Bob specializes in client operations and onboarding new staff efficiently.</p>`,
+  carol: `<h2>Carol – Trainer</h2><p>Carol focuses on mentoring and ensuring high client satisfaction.</p>`
+};
+
+document.querySelectorAll('.trainer-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const trainer=card.getAttribute('data-trainer');
+    document.getElementById('modalContent').innerHTML=bios[trainer];
+    document.getElementById('trainerModal').classList.add('active');
+  });
+});
+function closeModal(){document.getElementById('trainerModal').classList.remove('active');}
+
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=document.getElementById('lightboxImg');
+document.querySelectorAll('.gallery-img').forEach(img=>{
+  img.addEventListener('click',()=>{
+    lightboxImg.src=img.src;
+    lightbox.classList.add('active');
+  });
+});
+function closeLightbox(){lightbox.classList.remove('active');}
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+</script>
+</body>
+</html>
 
