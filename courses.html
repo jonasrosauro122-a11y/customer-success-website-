@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Courses • LAVA Classroom</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background: linear-gradient(rgba(155,18,18,0.6), rgba(0,0,0,0.9)), url('images/classroom-bg.jpg') center/cover no-repeat fixed;
+  background-blend-mode: overlay, multiply;
+  overflow-x: hidden;
+}
+
+.clouds{
+  position:absolute;top:0;left:0;width:200%;height:200%;
+  background:url('images/clouds.png') repeat;
+  background-size:contain;
+  opacity:0.12;
+  animation:cloudMove 120s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes cloudMove{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+header{
+  position:sticky;top:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 2rem;background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(5px);
+}
+.brand-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.brand{color:#e50914;font-size:1.5rem;font-weight:700;text-decoration:none;}
+.brand img{width:80px;height:auto;margin-top:5px;opacity:0.9;filter:drop-shadow(0 0 5px rgba(255,255,255,0.3));}
+nav ul{display:flex;list-style:none;gap:20px;flex-wrap:wrap;}
+nav a{color:#fff;text-decoration:none;font-weight:500;padding:6px 12px;border-radius:5px;transition:all 0.3s ease;}
+nav a:hover, nav a.active{background:#e50914;transform:scale(1.05);}
+
+.container{max-width:1150px;margin:0 auto;padding:40px 20px;position:relative;z-index:5;}
+h1.section-title{text-align:center;color:#e50914;font-size:2.4rem;margin-bottom:10px;text-transform:uppercase;}
+p.lead{text-align:center;color:#ddd;margin-bottom:40px;}
+
+/* Courses Grid */
+.courses-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:2rem;
+  margin-top:40px;
+}
+
+/* Course Card */
+.course-card{
+  background:#fff;color:#000;border-radius:15px;padding:1rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+  cursor:pointer;position:relative;transition:transform 0.3s ease;
+}
+.course-card:hover{transform:scale(1.03);}
+.course-card h3{color:#800000;margin:10px 0 5px;font-size:1.2rem;}
+.course-card p.short{font-weight:bold;color:#333;margin-bottom:10px;}
+.course-card p.goal{font-style:italic;color:#555;margin-top:10px;font-size:0.9rem;}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  display:flex;justify-content:center;align-items:center;
+  z-index:100;opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+.modal-overlay.active{opacity:1;pointer-events:auto;}
+.modal{
+  background:#fff;color:#111;border-radius:20px;max-width:700px;padding:30px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.4);
+  text-align:left;animation:popIn 0.4s ease;position:relative;
+  max-height:80vh;overflow-y:auto;
+}
+@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal h2{color:#b30000;margin-bottom:10px;}
+.modal h4{color:#e50914;margin-top:15px;margin-bottom:5px;}
+.modal p, .modal ul{color:#333;line-height:1.6;margin-bottom:10px;}
+.close-btn{position:absolute;top:10px;right:15px;font-size:1.5rem;color:#b30000;cursor:pointer;font-weight:bold;}
+
+/* Footer */
+footer{text-align:center;padding:30px 20px;background:#111;color:#bbb;margin-top:60px;}
+</style>
+</head>
+<body>
+<div class="clouds"></div>
+
+<header>
+  <div class="brand-container">
+    <a href="index.html" class="brand">LAVA Classroom</a>
+    <img src="images/lava-logo.png" alt="LAVA Logo" class="lava-logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">Trainers</a></li>
+      <li><a href="courses.html" class="active">Courses</a></li>
+      <li><a href="assignments.html">Assignments</a></li>
+      <li><a href="game.html">Games</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container">
+  <h1 class="section-title">14-Day Training Plan</h1>
+  <p class="lead">Click a course card to view detailed topics, expectations, and goals for each day.</p>
+
+  <div class="courses-grid">
+    <!-- Course cards inserted dynamically via JS -->
+  </div>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="courseModal">
+  <div class="modal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 LAVA Classroom. All Rights Reserved.</p>
+</footer>
+
+<script>
+const courseDays = [
+  {day:"Day 1 — Getting to Know You & LAVA VA Roles", short:"Different Roles of a LAVA VA, Admin Tasks", topics:"Team introductions, company culture, overview of VA responsibilities, admin tasks", expect:["Icebreaker activities and introductions","Presentation about LAVA’s mission, values","Walkthrough of daily VA tasks — emails, data entry, scheduling, client communication"], learn:["Different VA roles (Admin, CSR, Data Entry, Rater Support, etc.)","Professional expectations","Overview of tools used"], goal:"Build familiarity with LAVA’s work culture."},
+  {day:"Day 2 — Insurance 101: Policy Cycle", short:"Policy lifecycle and key insurance concepts", topics:"Basic insurance concepts, policy lifecycle, key terminology", expect:["Interactive presentation on policy creation, issuance, renewal","Real-world client interaction examples"], learn:["Flow from Quote → Bind → Issue → Endorsement → Renewal → Cancellation","Common insurance terms"], goal:"Gain a strong foundation in insurance processes."},
+  {day:"Day 3 — Insurance Documents", short:"Forms, Declarations, and Document Types", topics:"Forms, declarations, and document types", expect:["Guided breakdown of common insurance documents","Practice identifying information in sample policies"], learn:["Declaration Page overview","Common forms: ID cards, binders, COIs, invoices","Proper organization and labeling"], goal:"Build document literacy and confidence."}
+  // Add remaining days 4-14 following the same structure
+];
+
+const grid = document.querySelector(".courses-grid");
+courseDays.forEach((d,i)=>{
+  const card = document.createElement("div");
+  card.className="course-card";
+  card.innerHTML=`<h3>${d.day}</h3><p class="short">${d.short}</p><p class="goal">Goal: ${d.goal}</p>`;
+  card.addEventListener("click",()=>{
+    document.getElementById("modalContent").innerHTML=`
+      <h2>${d.day}</h2>
+      <h4>Topics:</h4><p>${d.topics}</p>
+      <h4>What to Expect:</h4><ul>${d.expect.map(e=>`<li>${e}</li>`).join("")}</ul>
+      <h4>What You’ll Learn:</h4><ul>${d.learn.map(l=>`<li>${l}</li>`).join("")}</ul>
+      <h4>Goal:</h4><p>${d.goal}</p>
+    `;
+    document.getElementById("courseModal").classList.add("active");
+  });
+  grid.appendChild(card);
+});
+
+function closeModal(){document.getElementById("courseModal").classList.remove("active");}
+</script>
+</body>
+</html>
